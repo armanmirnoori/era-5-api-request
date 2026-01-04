@@ -1,25 +1,33 @@
-title: "ERA-5 Data Pipeline for WBGT"
-description: >
-  This repository provides a pipeline to download ERA-5 climate data,
-  extract ZIP-encoded .nc archives, merge NetCDF slices using xarray + dask,
-  and convert them into a single DataFrame for WBGT heat-stress index calculation.
-steps:
-  - "Create .cdsapirc in C:\\Users\\<YOUR_USERNAME>\\.cdsapirc and add: url + key"
-  - "Edit main.py and replace file location, year, and month"
-  - "main.py downloads .nc files which are ZIP internally"
-  - "Run extract_all.py with correct absolute pathing to generate extracted NetCDF files"
-  - "Run view.py to merge extracted .nc files and export a single CSV/Parquet for WBGT"
-output:
-  csv: "era5_all.csv"
-  parquet: "era5_all.parquet"
+# ERA-5 Data Pipeline for WBGT Calculation
 
-variables_used_for_wbgt:
-  - "t2m — 2m air temperature (Kelvin)"
-  - "d2m — 2m dew point temperature (Kelvin)"
-  - "u10, v10 — 10m wind components (m/s)"
-  - "ssrd — surface solar radiation"
+This repo contains Python scripts to:
 
-execution_order_commands: |
-  python main.py
-  python extract_all.py
-  python view.py
+**download → extract → merge → convert to a single DataFrame**,  
+specifically for **WBGT (heat-stress index) calculation**.
+
+---
+## ⚙️ Setup
+---
+
+### 1. Create CDS API credentials file at
+C:\Users<YOUR_USERNAME>.cdsapirc
+**Paste this inside the file:**
+url: https://cds.climate.copernicus.eu/api
+
+key: <YOUR_API_KEY>
+---
+
+### 2. Edit `main.py`
+Replace:
+- file **location path**
+- request **year & month**
+- **data** needed from era-5
+---
+## 🔁 Pipeline Execution
+---
+### 3. Run `main.py` to download ERA-5 data
+### 4. Run `exteract.py` to Extract ZIP-encoded .nc files
+### 5. Run `view.py` to create a CSV file with the datas
+
+---
+📤 Output Files: era5_all.csv
